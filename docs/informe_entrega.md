@@ -95,7 +95,7 @@ ENLACE_GOOGLE_DRIVE
 Pegar aqui el enlace del repositorio publico:
 
 ```text
-ENLACE_GITHUB
+https://github.com/AugustoReyes21/odoo-restaurante-waitlist
 ```
 
 ## Guion breve del video
