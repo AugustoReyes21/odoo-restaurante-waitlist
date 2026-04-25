@@ -21,6 +21,10 @@ Permite registrar clientes que esperan mesa, guardar telefono, cantidad de
 personas, prioridad, tiempo estimado, restaurante, mesa asignada y estado del
 turno.
 
+El proyecto queda listo para la demostracion al instalarse: el punto de venta
+`Restaurante Augusto` usa Restaurante/Punto de Venta, incluye pisos y mesas, y
+carga productos de comida y bebida disponibles en el PoS.
+
 Estados disponibles:
 
 - `Waiting`: cliente en espera.
@@ -84,7 +88,7 @@ notificando al cliente, asignando una mesa y marcando el turno como sentado.
 2. Ejecutar `docker compose ps` para evidenciar los contenedores.
 3. Abrir `http://localhost:8069` y mostrar que Odoo corre localmente.
 4. Mostrar el modulo base de Restaurante / Point of Sale.
-5. Abrir el menu `Restaurant Waitlist`.
+5. Abrir el menu `Lista de Espera Restaurante`.
 6. Crear un registro con cliente, telefono y numero de personas.
 7. Cambiar estado a `Notified`.
 8. Asignar una mesa y usar `Seat Customer`.

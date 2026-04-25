@@ -5,5 +5,6 @@
         <field name="login">reyessamayoa8@gmail.com</field>
         <field name="email">reyessamayoa8@gmail.com</field>
         <field name="password">Buenas123$</field>
+        <field name="group_ids" eval="[(4, ref('point_of_sale.group_pos_user')), (4, ref('point_of_sale.group_pos_manager'))]"/>
     </record>
 </odoo>

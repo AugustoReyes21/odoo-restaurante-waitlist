@@ -1,8 +1,9 @@
-Coloca aqui los addons personalizados del Hospital Hilario Galindo.
+Coloca aqui los addons personalizados del proyecto Restaurante Augusto.
 
-La imagen oficial de Odoo ya trae modulos base, contactos, ventas, compras e inventario.
-Para Emergencias, Hospitalizacion, Laboratorio y Rayos X necesitas montar addons
-adicionales en esta carpeta y luego actualizarlos desde Apps en Odoo.
+La imagen oficial de Odoo ya trae modulos base, contactos, ventas, compras,
+inventario y punto de venta. Para este proyecto se monta aqui el modulo
+`restaurant_waitlist`, que extiende Restaurante/Punto de Venta con una lista de
+espera funcional.
 # Addons personalizados
 
 Esta carpeta contiene los módulos desarrollados para la tarea.

@@ -2,7 +2,7 @@
 
 ## Nombre completo
 
-Hilario Galindo
+Augusto Reyes
 
 ## Arquitectura local utilizada
 
@@ -28,7 +28,9 @@ La instalacion se realizo utilizando la imagen oficial de Odoo `odoo:19.0` y
 PostgreSQL 15. Primero se levanta la base de datos, luego se ejecuta el servicio
 `odoo-init` para crear la base `odoo_restaurante` e instalar los modulos base,
 `point_of_sale`, `pos_restaurant` y el modulo personalizado
-`restaurant_waitlist`.
+`restaurant_waitlist`. El entorno queda preparado para restaurante desde la
+inicializacion, con el punto de venta Restaurante Augusto, pisos, mesas,
+metodos de pago y productos de menu disponibles para usarse en PoS.
 
 Comandos utilizados:
 
@@ -56,6 +58,11 @@ Contrasena: Buenas123$
 
 La personalizacion implementada se llama `restaurant_waitlist` y agrega un
 listado de espera para el modulo de Restaurante de Odoo.
+
+Ademas, el modulo carga datos base para que la demostracion no requiera
+configuracion manual: el PoS queda nombrado como Restaurante Augusto, se activan
+los pisos Main Floor y Patio, se conservan las mesas del restaurante y se crean
+productos de comida y bebida disponibles directamente en Punto de Venta.
 
 La mejora permite registrar clientes que llegan al restaurante cuando no hay una
 mesa disponible inmediatamente. Cada registro permite guardar:

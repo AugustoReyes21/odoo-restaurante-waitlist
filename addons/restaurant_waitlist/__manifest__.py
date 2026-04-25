@@ -15,6 +15,7 @@
         "views/restaurant_waitlist_views.xml",
         "views/menus.xml",
     ],
+    "post_init_hook": "post_init_hook",
     "installable": True,
     "application": True,
 }

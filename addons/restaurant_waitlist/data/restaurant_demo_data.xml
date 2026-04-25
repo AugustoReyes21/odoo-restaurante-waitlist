@@ -1,17 +1,283 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <record id="journal_pos_sale_restaurant" model="account.journal">
+        <field name="name">Punto de Venta Restaurante</field>
+        <field name="code">POSS</field>
+        <field name="type">general</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_cash_restaurant" model="account.journal">
+        <field name="name">Efectivo Restaurante</field>
+        <field name="code">CSHR</field>
+        <field name="type">cash</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="journal_bank_restaurant" model="account.journal">
+        <field name="name">Banco Restaurante</field>
+        <field name="code">BNKR</field>
+        <field name="type">bank</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="payment_cash_restaurant" model="pos.payment.method">
+        <field name="name">Efectivo</field>
+        <field name="journal_id" ref="journal_cash_restaurant"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="payment_card_restaurant" model="pos.payment.method">
+        <field name="name">Tarjeta</field>
+        <field name="journal_id" ref="journal_bank_restaurant"/>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <record id="payment_customer_account_restaurant" model="pos.payment.method">
+        <field name="name">Cuenta de cliente</field>
+        <field name="split_transactions">True</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
     <record id="floor_main_dining_room" model="restaurant.floor">
-        <field name="name">Salon principal</field>
+        <field name="name">Main Floor</field>
         <field name="sequence">1</field>
+        <field name="background_color">rgb(237,230,219)</field>
         <field name="active">True</field>
+    </record>
+
+    <record id="floor_patio" model="restaurant.floor">
+        <field name="name">Patio</field>
+        <field name="sequence">2</field>
+        <field name="background_color">rgb(222,236,225)</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="pos_config_restaurante_augusto" model="pos.config">
+        <field name="name">Restaurante Augusto</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="journal_id" ref="journal_pos_sale_restaurant"/>
+        <field name="payment_method_ids" eval="[(6, 0, [ref('payment_cash_restaurant'), ref('payment_card_restaurant'), ref('payment_customer_account_restaurant')])]"/>
+        <field name="module_pos_restaurant">True</field>
+        <field name="iface_splitbill">True</field>
+        <field name="floor_ids" eval="[(6, 0, [ref('floor_main_dining_room'), ref('floor_patio')])]"/>
     </record>
 
     <record id="table_main_01" model="restaurant.table">
         <field name="floor_id" ref="floor_main_dining_room"/>
         <field name="table_number">1</field>
-        <field name="identifier">MESA-01</field>
+        <field name="identifier">1</field>
         <field name="seats">4</field>
+        <field name="position_h">220</field>
+        <field name="position_v">120</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
         <field name="shape">square</field>
-        <field name="active">True</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_02" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">2</field>
+        <field name="identifier">2</field>
+        <field name="seats">4</field>
+        <field name="position_h">390</field>
+        <field name="position_v">120</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_03" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">3</field>
+        <field name="identifier">3</field>
+        <field name="seats">6</field>
+        <field name="position_h">570</field>
+        <field name="position_v">120</field>
+        <field name="width">130</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_04" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">4</field>
+        <field name="identifier">4</field>
+        <field name="seats">4</field>
+        <field name="position_h">220</field>
+        <field name="position_v">260</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_05" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">5</field>
+        <field name="identifier">5</field>
+        <field name="seats">4</field>
+        <field name="position_h">390</field>
+        <field name="position_v">260</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_06" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">6</field>
+        <field name="identifier">6</field>
+        <field name="seats">6</field>
+        <field name="position_h">570</field>
+        <field name="position_v">350</field>
+        <field name="width">130</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_main_07" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">7</field>
+        <field name="identifier">7</field>
+        <field name="seats">4</field>
+        <field name="position_h">220</field>
+        <field name="position_v">430</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_main_08" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">8</field>
+        <field name="identifier">8</field>
+        <field name="seats">4</field>
+        <field name="position_h">390</field>
+        <field name="position_v">430</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_main_09" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">9</field>
+        <field name="identifier">9</field>
+        <field name="seats">6</field>
+        <field name="position_h">120</field>
+        <field name="position_v">570</field>
+        <field name="width">130</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_main_10" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">10</field>
+        <field name="identifier">10</field>
+        <field name="seats">4</field>
+        <field name="position_h">250</field>
+        <field name="position_v">570</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_main_11" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">11</field>
+        <field name="identifier">11</field>
+        <field name="seats">4</field>
+        <field name="position_h">390</field>
+        <field name="position_v">570</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(172,109,173)</field>
+    </record>
+    <record id="table_main_12" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">12</field>
+        <field name="identifier">12</field>
+        <field name="seats">6</field>
+        <field name="position_h">570</field>
+        <field name="position_v">570</field>
+        <field name="width">130</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(172,109,173)</field>
+    </record>
+
+    <record id="table_patio_21" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">21</field>
+        <field name="identifier">21</field>
+        <field name="seats">4</field>
+        <field name="position_h">150</field>
+        <field name="position_v">130</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">round</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_patio_22" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">22</field>
+        <field name="identifier">22</field>
+        <field name="seats">4</field>
+        <field name="position_h">320</field>
+        <field name="position_v">130</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">round</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_patio_23" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">23</field>
+        <field name="identifier">23</field>
+        <field name="seats">6</field>
+        <field name="position_h">490</field>
+        <field name="position_v">130</field>
+        <field name="width">120</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(53,211,116)</field>
+    </record>
+    <record id="table_patio_24" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">24</field>
+        <field name="identifier">24</field>
+        <field name="seats">4</field>
+        <field name="position_h">150</field>
+        <field name="position_v">290</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">round</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_patio_25" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">25</field>
+        <field name="identifier">25</field>
+        <field name="seats">4</field>
+        <field name="position_h">320</field>
+        <field name="position_v">290</field>
+        <field name="width">90</field>
+        <field name="height">90</field>
+        <field name="shape">round</field>
+        <field name="color">rgb(235,109,109)</field>
+    </record>
+    <record id="table_patio_26" model="restaurant.table">
+        <field name="floor_id" ref="floor_patio"/>
+        <field name="table_number">26</field>
+        <field name="identifier">26</field>
+        <field name="seats">6</field>
+        <field name="position_h">490</field>
+        <field name="position_v">290</field>
+        <field name="width">120</field>
+        <field name="height">90</field>
+        <field name="shape">square</field>
+        <field name="color">rgb(172,109,173)</field>
     </record>
 </odoo>

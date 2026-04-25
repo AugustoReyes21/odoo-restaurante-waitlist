@@ -27,7 +27,6 @@ services:
       - --db_user=odoo
       - --database=odoo_restaurante
       - --db-filter=^odoo_restaurante$
-      - --without-demo=True
     restart: unless-stopped
 
   db:
@@ -63,15 +62,31 @@ services:
     secrets:
       - postgresql_password
     command:
-      - odoo
-      - --config=/etc/odoo/odoo.conf
-      - --db_host=db
-      - --db_port=5432
-      - --db_user=odoo
-      - --database=odoo_restaurante
-      - --init=base,contacts,point_of_sale,pos_restaurant,restaurant_waitlist
-      - --without-demo=True
-      - --stop-after-init
+      - bash
+      - -lc
+      - |
+        DB_PASSWORD="$$(cat /run/secrets/postgresql_password)"
+        odoo \
+          --config=/etc/odoo/odoo.conf \
+          --db_host=db \
+          --db_port=5432 \
+          --db_user=odoo \
+          --db_password="$$DB_PASSWORD" \
+          --database=odoo_restaurante \
+          --init=base,contacts,point_of_sale,pos_restaurant,restaurant_waitlist \
+          --stop-after-init
+        odoo shell \
+          --config=/etc/odoo/odoo.conf \
+          --db_host=db \
+          --db_port=5432 \
+          --db_user=odoo \
+          --db_password="$$DB_PASSWORD" \
+          -d odoo_restaurante <<'PY'
+        from odoo.addons.restaurant_waitlist.hooks import ensure_restaurant_setup
+        result = ensure_restaurant_setup(env)
+        env.cr.commit()
+        print("Restaurant setup ready:", result)
+        PY
     volumes:
       - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
