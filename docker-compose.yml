@@ -1,53 +1,56 @@
 name: odoo-restaurante-waitlist
 
 services:
-  db:
-    image: postgres:15
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: ${ODOO_DB_USER}
-      POSTGRES_PASSWORD: ${ODOO_DB_PASSWORD}
-      PGDATA: /var/lib/postgresql/data/pgdata
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${ODOO_DB_USER} -d postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 10s
-    volumes:
-      - odoo_restaurante_db_data:/var/lib/postgresql/data/pgdata
-
-  odoo:
-    image: odoo:${ODOO_VERSION}
-    restart: unless-stopped
+  web:
+    image: odoo:19.0
     depends_on:
       db:
         condition: service_healthy
     ports:
-      - "${ODOO_PORT}:8069"
+      - "8069:8069"
+    volumes:
+      - odoo-web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
     environment:
       HOST: db
       PORT: 5432
-      USER: ${ODOO_DB_USER}
-      PASSWORD: ${ODOO_DB_PASSWORD}
+      USER: odoo
+      PASSWORD_FILE: /run/secrets/postgresql_password
+    secrets:
+      - postgresql_password
     command:
       - odoo
       - --config=/etc/odoo/odoo.conf
       - --db_host=db
       - --db_port=5432
-      - --db_user=${ODOO_DB_USER}
-      - --db_password=${ODOO_DB_PASSWORD}
-      - --database=${ODOO_DB_NAME}
-      - --db-filter=^${ODOO_DB_NAME}$
+      - --db_user=odoo
+      - --database=odoo_restaurante
+      - --db-filter=^odoo_restaurante$
       - --without-demo=True
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD_FILE: /run/secrets/postgresql_password
+      PGDATA: /var/lib/postgresql/data/pgdata
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U odoo -d postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
     volumes:
-      - odoo_restaurante_odoo_data:/var/lib/odoo
-      - ./config:/etc/odoo
-      - ./addons:/mnt/extra-addons
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
+    secrets:
+      - postgresql_password
+    restart: unless-stopped
 
   odoo-init:
-    image: odoo:${ODOO_VERSION}
+    image: odoo:19.0
     profiles: ["setup"]
     depends_on:
       db:
@@ -55,24 +58,29 @@ services:
     environment:
       HOST: db
       PORT: 5432
-      USER: ${ODOO_DB_USER}
-      PASSWORD: ${ODOO_DB_PASSWORD}
+      USER: odoo
+      PASSWORD_FILE: /run/secrets/postgresql_password
+    secrets:
+      - postgresql_password
     command:
       - odoo
       - --config=/etc/odoo/odoo.conf
       - --db_host=db
       - --db_port=5432
-      - --db_user=${ODOO_DB_USER}
-      - --db_password=${ODOO_DB_PASSWORD}
-      - --database=${ODOO_DB_NAME}
+      - --db_user=odoo
+      - --database=odoo_restaurante
       - --init=base,contacts,point_of_sale,pos_restaurant,restaurant_waitlist
       - --without-demo=True
       - --stop-after-init
     volumes:
-      - odoo_restaurante_odoo_data:/var/lib/odoo
+      - odoo-web-data:/var/lib/odoo
       - ./config:/etc/odoo
       - ./addons:/mnt/extra-addons
 
 volumes:
-  odoo_restaurante_db_data:
-  odoo_restaurante_odoo_data:
+  odoo-web-data:
+  odoo-db-data:
+
+secrets:
+  postgresql_password:
+    file: odoo_pg_pass

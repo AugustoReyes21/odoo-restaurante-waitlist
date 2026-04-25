@@ -11,7 +11,7 @@ proyecto se levanta con Docker Compose y contiene tres servicios principales:
 
 - `db`: base de datos PostgreSQL 15, requerida por Odoo para almacenar la
   informacion del ERP.
-- `odoo`: aplicacion principal de Odoo, expuesta localmente en el puerto `8069`.
+- `web`: aplicacion principal de Odoo, expuesta localmente en el puerto `8069`.
 - `odoo-init`: servicio temporal utilizado para inicializar la base de datos e
   instalar los modulos necesarios.
 
@@ -19,6 +19,8 @@ El archivo `docker-compose.yml` monta dos carpetas locales importantes:
 
 - `config/`: contiene el archivo `odoo.conf`.
 - `addons/`: contiene el codigo de la personalizacion desarrollada.
+- `odoo_pg_pass`: archivo usado como secret local para la contrasena de
+  PostgreSQL.
 
 ## Descripcion corta de la instalacion realizada
 
@@ -33,7 +35,7 @@ Comandos utilizados:
 ```bash
 docker compose up -d db
 docker compose --profile setup run --rm odoo-init
-docker compose up -d odoo
+docker compose up -d web
 docker compose ps
 ```
 
@@ -101,7 +103,7 @@ https://github.com/AugustoReyes21/odoo-restaurante-waitlist
 ## Guion breve del video
 
 1. Mostrar el archivo `docker-compose.yml` y explicar que contiene los servicios
-   `db`, `odoo` y `odoo-init`.
+   `db`, `web` y `odoo-init`.
 2. Ejecutar o mostrar `docker compose ps` para evidenciar que los contenedores
    estan levantados.
 3. Abrir `http://localhost:8069` para demostrar que Odoo esta corriendo

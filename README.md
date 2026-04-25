@@ -6,11 +6,13 @@ personalizacion funcional sobre el modulo de Restaurante.
 ## Arquitectura local
 
 - `db`: contenedor PostgreSQL 15 usado por Odoo.
-- `odoo`: contenedor principal con la imagen oficial `odoo:19.0`.
+- `web`: contenedor principal con la imagen oficial `odoo:19.0`.
 - `odoo-init`: servicio temporal que inicializa la base de datos e instala los
   modulos necesarios.
 - `./config`: configuracion de Odoo.
 - `./addons`: addons personalizados montados en `/mnt/extra-addons`.
+- `odoo_pg_pass`: archivo usado como secret local para la contrasena de
+  PostgreSQL.
 
 ## Personalizacion implementada
 
@@ -51,7 +53,7 @@ notificando al cliente, asignando una mesa y marcando el turno como sentado.
 3. Levantar Odoo:
 
    ```bash
-   docker compose up -d odoo
+   docker compose up -d web
    ```
 
 4. Verificar contenedores:
@@ -90,6 +92,7 @@ notificando al cliente, asignando una mesa y marcando el turno como sentado.
 ## Archivos importantes
 
 - `docker-compose.yml`: servicios de PostgreSQL, Odoo y setup inicial.
+- `odoo_pg_pass`: secret local usado por Docker Compose para PostgreSQL.
 - `config/odoo.conf`: configuracion principal de Odoo.
 - `addons/restaurant_waitlist`: codigo fuente del addon personalizado.
 - `docs/informe_entrega.md`: documento base para generar el PDF de entrega.

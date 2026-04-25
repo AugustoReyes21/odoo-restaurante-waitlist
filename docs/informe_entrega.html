@@ -46,16 +46,16 @@
   <p>La solucion utiliza una arquitectura local basada en contenedores Docker. El proyecto se levanta con Docker Compose y contiene tres servicios principales:</p>
   <ul>
     <li><strong>db:</strong> base de datos PostgreSQL 15, requerida por Odoo para almacenar la informacion del ERP.</li>
-    <li><strong>odoo:</strong> aplicacion principal de Odoo, expuesta localmente en el puerto <code>8069</code>.</li>
+    <li><strong>web:</strong> aplicacion principal de Odoo, expuesta localmente en el puerto <code>8069</code>.</li>
     <li><strong>odoo-init:</strong> servicio temporal utilizado para inicializar la base de datos e instalar los modulos necesarios.</li>
   </ul>
-  <p>El archivo <code>docker-compose.yml</code> monta la carpeta <code>config/</code> con la configuracion de Odoo y la carpeta <code>addons/</code> con el codigo de la personalizacion desarrollada.</p>
+  <p>El archivo <code>docker-compose.yml</code> monta la carpeta <code>config/</code> con la configuracion de Odoo, la carpeta <code>addons/</code> con el codigo de la personalizacion desarrollada y el archivo <code>odoo_pg_pass</code> como secret local para PostgreSQL.</p>
 
   <h2>Descripcion corta de la instalacion realizada</h2>
   <p>La instalacion se realizo utilizando la imagen oficial de Odoo <code>odoo:19.0</code> y PostgreSQL 15. Primero se levanta la base de datos, luego se ejecuta el servicio <code>odoo-init</code> para crear la base <code>odoo_restaurante</code> e instalar los modulos base, <code>point_of_sale</code>, <code>pos_restaurant</code> y el modulo personalizado <code>restaurant_waitlist</code>.</p>
   <pre>docker compose up -d db
 docker compose --profile setup run --rm odoo-init
-docker compose up -d odoo
+docker compose up -d web
 docker compose ps</pre>
   <p>La aplicacion queda disponible en <code>http://localhost:8069</code>.</p>
   <p>Credenciales de acceso a Odoo:</p>
@@ -75,7 +75,7 @@ Contrasena: Buenas123$</pre>
 
   <h2>Guion breve del video</h2>
   <ol>
-    <li>Mostrar el archivo <code>docker-compose.yml</code> y explicar que contiene los servicios <code>db</code>, <code>odoo</code> y <code>odoo-init</code>.</li>
+    <li>Mostrar el archivo <code>docker-compose.yml</code> y explicar que contiene los servicios <code>db</code>, <code>web</code> y <code>odoo-init</code>.</li>
     <li>Ejecutar o mostrar <code>docker compose ps</code> para evidenciar que los contenedores estan levantados.</li>
     <li>Abrir <code>http://localhost:8069</code> para demostrar que Odoo esta corriendo localmente.</li>
     <li>Mostrar el modulo base de Point of Sale / Restaurante.</li>
