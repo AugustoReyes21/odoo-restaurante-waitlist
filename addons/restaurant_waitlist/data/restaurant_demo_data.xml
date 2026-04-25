@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="floor_main_dining_room" model="restaurant.floor">
+        <field name="name">Salon principal</field>
+        <field name="sequence">1</field>
+        <field name="active">True</field>
+    </record>
+
+    <record id="table_main_01" model="restaurant.table">
+        <field name="floor_id" ref="floor_main_dining_room"/>
+        <field name="table_number">1</field>
+        <field name="identifier">MESA-01</field>
+        <field name="seats">4</field>
+        <field name="shape">square</field>
+        <field name="active">True</field>
+    </record>
+</odoo>

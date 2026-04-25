@@ -68,10 +68,9 @@
                 <filter name="waiting" string="Waiting" domain="[('state', '=', 'waiting')]"/>
                 <filter name="notified" string="Notified" domain="[('state', '=', 'notified')]"/>
                 <filter name="seated" string="Seated" domain="[('state', '=', 'seated')]"/>
-                <group expand="0" string="Group By">
-                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
-                    <filter name="group_restaurant" string="Restaurant" context="{'group_by': 'pos_config_id'}"/>
-                </group>
+                <separator/>
+                <filter name="group_state" string="Group by Status" context="{'group_by': 'state'}"/>
+                <filter name="group_restaurant" string="Group by Restaurant" context="{'group_by': 'pos_config_id'}"/>
             </search>
         </field>
     </record>

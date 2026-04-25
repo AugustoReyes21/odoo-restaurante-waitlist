@@ -2,6 +2,11 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
+class RestaurantTable(models.Model):
+    _inherit = "restaurant.table"
+    _rec_name = "identifier"
+
+
 class RestaurantWaitlist(models.Model):
     _name = "restaurant.waitlist"
     _description = "Restaurant Waitlist Entry"

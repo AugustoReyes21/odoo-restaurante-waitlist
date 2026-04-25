@@ -2,3 +2,6 @@ __pycache__/
 *.py[cod]
 .DS_Store
 .env.local
+node_modules/
+docs/video/
+scripts/

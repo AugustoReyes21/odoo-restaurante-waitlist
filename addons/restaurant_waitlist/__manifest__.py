@@ -11,6 +11,7 @@
         "security/ir.model.access.csv",
         "data/admin_user.xml",
         "data/sequence.xml",
+        "data/restaurant_demo_data.xml",
         "views/restaurant_waitlist_views.xml",
         "views/menus.xml",
     ],
