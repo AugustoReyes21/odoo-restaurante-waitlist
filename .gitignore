@@ -4,4 +4,5 @@ __pycache__/
 .env.local
 node_modules/
 docs/video/
+docs/video_real/
 scripts/
