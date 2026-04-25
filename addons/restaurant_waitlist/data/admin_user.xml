@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="base.user_admin" model="res.users">
+        <field name="name">Administrador</field>
+        <field name="login">reyessamayoa8@gmail.com</field>
+        <field name="email">reyessamayoa8@gmail.com</field>
+        <field name="password">Buenas123$</field>
+    </record>
+</odoo>

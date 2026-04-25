@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <menuitem id="menu_restaurant_waitlist_root" name="Restaurant Waitlist" sequence="35"/>
+    <menuitem id="menu_restaurant_waitlist_entries" name="Waiting Parties" parent="menu_restaurant_waitlist_root" action="action_restaurant_waitlist" sequence="10"/>
+</odoo>
